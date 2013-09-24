@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- domain update cronjob -->
+            <record model="ir.cron" id="cronjob_domain_record_sync_ip">
+                <field name='name'>Domain Record Sync IP</field>
+                <field name='interval_number'>10</field>
+                <field name='interval_type'>minutes</field>
+                <field name="numbercall">-1</field>
+                <field eval="False" name="doall"/>
+                <field eval="'res.network.domain'" name="model"/>
+                <field eval="'act_sync_all'" name="function"/>
+                <field eval="'()'" name="args"/>
+            </record>
+
+    </data>
+</openerp>
