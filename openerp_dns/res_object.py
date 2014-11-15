@@ -3,10 +3,18 @@
 import httplib, urllib
 import socket,time
 import json
+import logging
 socket.setdefaulttimeout(3)
 
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+
+os_encode = 'utf-8'
+import os
+if os.name == 'nt':
+    os_encode='gbk'
+
+_logger = logging.getLogger(__name__)
 
 socket_trytimes = [0.1, 2]
 
@@ -64,6 +72,8 @@ class res_network_domain(osv.osv):
                     'login_email': res.api_user,
                     'login_password': res.api_pass,
                     'format': 'json',
+                    'lang': 'cn',
+                    'error_on_empty': 'no',
                 })
                 params.update(dict(value=ip))
 
@@ -141,8 +151,11 @@ class wizard_config_dnspod_api(osv.osv_memory):
             'login_email': res.domain_id.api_user,
             'login_password': res.domain_id.api_pass,
             'format': 'json',
+            'lang': 'cn',
+            'error_on_empty': 'no',
         }
 
+        _logger.info('[DnsPod] Domain.List')
         conn = httplib.HTTPSConnection(self._base_url)
         ret = False
         for try_ts in socket_trytimes:
@@ -151,7 +164,9 @@ class wizard_config_dnspod_api(osv.osv_memory):
 
                 response = conn.getresponse()
                 ret = json.loads(response.read())
+                _logger.info('[DnsPod] Domain.List ret: %s' % json.dumps(ret))
                 if not (ret.get("status", {}).get("code") == "1"):
+                    _logger.info('[DnsPod] Domain.List Exception: %s' % str(ret))
                     raise Exception(ret)
                 conn.close()
                 break
@@ -171,8 +186,12 @@ class wizard_config_dnspod_api(osv.osv_memory):
             'login_email': res.domain_id.api_user,
             'login_password': res.domain_id.api_pass,
             'format': 'json',
+            'lang': 'cn',
+            'error_on_empty': 'no',
             'domain_id': domain_id,
         }
+
+        _logger.info('[DnsPod] Domain.Info')
         conn = httplib.HTTPSConnection(self._base_url)
         ret = False
         for try_ts in socket_trytimes:
@@ -181,7 +200,9 @@ class wizard_config_dnspod_api(osv.osv_memory):
 
                 response = conn.getresponse()
                 ret = json.loads(response.read())
+                _logger.info('[DnsPod] Domain.Info ret: %s' % json.dumps(ret))
                 if not (ret.get("status", {}).get("code") == "1"):
+                    _logger.info('[DnsPod] Domain.Info Exception: %s' % str(ret))
                     raise Exception(ret)
                 conn.close()
                 break
@@ -201,8 +222,12 @@ class wizard_config_dnspod_api(osv.osv_memory):
             'login_email': res.domain_id.api_user,
             'login_password': res.domain_id.api_pass,
             'format': 'json',
+            'lang': 'cn',
+            'error_on_empty': 'no',
             'domain_id': domain_id,
         }
+
+        _logger.info('[DnsPod] Record.List')
         conn = httplib.HTTPSConnection(self._base_url)
         ret = False
         for try_ts in socket_trytimes:
@@ -211,7 +236,9 @@ class wizard_config_dnspod_api(osv.osv_memory):
 
                 response = conn.getresponse()
                 ret = json.loads(response.read())
+                _logger.info('[DnsPod] Record.List ret: %s' % json.dumps(ret))
                 if not (ret.get("status", {}).get("code") == "1"):
+                    _logger.info('[DnsPod] Record.List Exception: %s' % str(ret))
                     raise Exception(ret)
                 conn.close()
                 break
@@ -231,12 +258,16 @@ class wizard_config_dnspod_api(osv.osv_memory):
             'login_email': res.domain_id.api_user,
             'login_password': res.domain_id.api_pass,
             'format': 'json',
+            'lang': 'cn',
+            'error_on_empty': 'no',
             'domain_id': domain_id,
             'record_id': record_id,
             'value': val,
             'record_type': record_type,
             'record_line': record_line,
         }
+
+        _logger.info('[DnsPod] Record.Modify')
         conn = httplib.HTTPSConnection(self._base_url)
         ret = False
         for try_ts in socket_trytimes:
@@ -245,7 +276,9 @@ class wizard_config_dnspod_api(osv.osv_memory):
 
                 response = conn.getresponse()
                 ret = json.loads(response.read())
+                _logger.info('[DnsPod] Record.Modify ret: %s' % json.dumps(ret))
                 if not (ret.get("status", {}).get("code") == "1"):
+                    _logger.info('[DnsPod] Record.Modify Exception: %s' % str(ret))
                     raise Exception(ret)
                 conn.close()
                 break
@@ -267,6 +300,7 @@ class wizard_config_dnspod_api(osv.osv_memory):
             raise
         for d in domain_res['domains']:
             if d['name'] == res.domain_id.name:
+                _logger.info('[DnsPod] Wizard Got domain: %s' % d['name'])
                 domain_id = d['id']
         if not domain_id:
             raise
@@ -276,7 +310,8 @@ class wizard_config_dnspod_api(osv.osv_memory):
         if not record_res:
             raise
         for r in record_res['records']:
-            if r['name'] == res.sub_domain:
+            if res.sub_domain == '%s.%s' % (r['name'], res.domain_id.name):
+                _logger.info('[DnsPod] Wizard Got record: %s.%s' % (r['name'], res.domain_id.name))
                 record_id = r['id']
         if not record_id:
             raise
@@ -284,8 +319,8 @@ class wizard_config_dnspod_api(osv.osv_memory):
         params = {
             'domain_id': domain_id,
             'record_id': record_id,
-            'sub_domain': res.sub_domain,
-            'ttl': 600,
+            'sub_domain': res.sub_domain.replace('.%s' % res.domain_id.name, ''),
+            'ttl': 120,
             'record_type': 'A',
             'record_line': res.record_line,
         }

@@ -18,56 +18,56 @@ msgstr ""
 #. module: openerp_dns
 #: field:res.network.domain,api_args:0
 msgid "API Parameters"
-msgstr "API 参数"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,api_pass:0
 msgid "API Pass"
-msgstr "帐户密码"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,api_token:0
-msgid "帐户Token"
+msgid "API Token"
 msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,api_user:0
-msgid "用户(邮件)"
+msgid "API User"
 msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,active:0
 msgid "Active"
-msgstr "有效"
+msgstr ""
 
 #. module: openerp_dns
 #: view:res.network.domain:openerp_dns.view_res_network_domain_form
 #: view:wizard.config.dnspod.api:openerp_dns.view_wizard_config_dnspod_api_form
 msgid "Config API"
-msgstr "配置DNS记录"
+msgstr ""
 
 #. module: openerp_dns
 #: view:wizard.config.dnspod.api:openerp_dns.view_wizard_config_dnspod_api_form
-msgid "配置"
+msgid "Configration"
 msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,create_uid:0
 #: field:wizard.config.dnspod.api,create_uid:0
 msgid "Created by"
-msgstr "创建者"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,create_date:0
 #: field:wizard.config.dnspod.api,create_date:0
 msgid "Created on"
-msgstr "创建于"
+msgstr ""
 
 #. module: openerp_dns
 #: model:ir.model,name:openerp_dns.model_wizard_config_dnspod_api
 #: view:wizard.config.dnspod.api:openerp_dns.view_wizard_config_dnspod_api_form
 msgid "DNSPod Domain Configration"
-msgstr "DNSPod 域名"
+msgstr ""
 
 #. module: openerp_dns
 #: selection:res.network.domain,isp:0
@@ -78,23 +78,23 @@ msgstr ""
 #: model:ir.model,name:openerp_dns.model_res_network_domain
 #: field:wizard.config.dnspod.api,domain_id:0
 msgid "Domain"
-msgstr "域名"
+msgstr ""
 
 #. module: openerp_dns
 #: code:addons\openerp_dns\res_object.py:110
 #, python-format
 msgid "Domain Config Wizard"
-msgstr "子域配置向导"
+msgstr ""
 
 #. module: openerp_dns
 #: model:ir.ui.menu,name:openerp_dns.menu_domain_dns
 msgid "Domain DNS"
-msgstr "域名列表"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,isp:0
 msgid "Domain ISP"
-msgstr "域名ISP"
+msgstr ""
 
 #. module: openerp_dns
 #: model:ir.actions.act_window,name:openerp_dns.action_res_network_domain_tree
@@ -103,50 +103,50 @@ msgstr "域名ISP"
 #: view:res.network.domain:openerp_dns.view_res_network_domain_search
 #: view:res.network.domain:openerp_dns.view_res_network_domain_tree
 msgid "Domains"
-msgstr "域名列表"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,id:0
 #: field:wizard.config.dnspod.api,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,write_uid:0
 #: field:wizard.config.dnspod.api,write_uid:0
 msgid "Last Updated by"
-msgstr "最后更新"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,write_date:0
 #: field:wizard.config.dnspod.api,write_date:0
 msgid "Last Updated on"
-msgstr "最后更新"
+msgstr ""
 
 #. module: openerp_dns
 #: field:res.network.domain,name:0
 msgid "Name"
-msgstr "域名"
+msgstr ""
 
 #. module: openerp_dns
 #: field:wizard.config.dnspod.api,record_line:0
 msgid "Record Line"
-msgstr "线路"
+msgstr ""
 
 #. module: openerp_dns
 #: field:wizard.config.dnspod.api,sub_domain:0
 msgid "Sub Domain"
-msgstr "子域名"
+msgstr ""
 
 #. module: openerp_dns
 #: view:res.network.domain:openerp_dns.view_res_network_domain_form
 msgid "Sync IP"
-msgstr "同步IP"
+msgstr ""
 
 #. module: openerp_dns
 #: help:res.network.domain,name:0
 msgid "The domain."
-msgstr "域名."
+msgstr ""
 
 #. module: openerp_dns
 #: view:wizard.config.dnspod.api:openerp_dns.view_wizard_config_dnspod_api_form
